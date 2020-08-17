@@ -26,8 +26,6 @@ public class TemplateTranslator implements HttpFunction {
     Response result = Transform.compile(request2.getInput(), request2.getTemplate());
 
     System.out.println(result.toString());
-    response.setContentType("application/json");
-    response.setStatusCode(200);
-    writer.write(gson.toJson(result));
+    writer.write(result.getResult(response));
   }
 }
