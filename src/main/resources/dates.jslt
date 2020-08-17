@@ -1,0 +1,11 @@
+def plusDays(date, days)
+   format-time(round(parse-time($date, "yyyy-MM-dd")) + $days * 60 * 60 * 24, "yyyy-MM-dd")
+
+def dateBefore(date, dateCompare)
+   round(parse-time($date, "yyyy-MM-dd")) < round(parse-time($dateCompare, "yyyy-MM-dd"))
+
+def dateAfter(date, dateCompare)
+   round(parse-time($date, "yyyy-MM-dd")) > round(parse-time($dateCompare, "yyyy-MM-dd"))
+
+def dateEqual(date, dateCompare)
+   round(parse-time($date, "yyyy-MM-dd")) == round(parse-time($dateCompare, "yyyy-MM-dd"))

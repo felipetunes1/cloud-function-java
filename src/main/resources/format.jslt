@@ -1,0 +1,21 @@
+import "pad.jslt" as jsltPadImportFormat
+
+def setValue(object, newValue)
+   {
+      for($object) .key : if(get-key($newValue, .key)) get-key($newValue, .key) else .value
+   }
+
+def formatDecimal(valor)  
+   number(replace(replace($valor, "[a-zA-Z\\$\\s(\\.)]", ""),",","."))
+
+def formatReal(valor)  
+   let valorSplited = split($valor,"\\.")
+   let inteiro = if($valorSplited[0]==null)"" else $valorSplited[0]
+   let decimais = if($valorSplited[1]==null)",00" else ","+jsltPadImportFormat:rpad($valorSplited[1],"0",2)
+   let valorReal = if($inteiro !="") "R$ "+join(split($inteiro , "(?=(?:...)*$)"),".")+$decimais 
+   $valorReal
+
+def keepOrRemoveAttr(body, attrList, keep)
+   { for($body) 
+      .key : .value if($keep == contains(.key, $attrList))
+   }
