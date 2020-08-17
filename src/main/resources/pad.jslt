@@ -1,0 +1,8 @@
+def lpad(value, character, times)
+  let array = ($times - size(string($value))) * ("" + $character)
+  $array + $value
+
+def rpad(value, character, times)
+  let array = ($times - size(string($value))) * ("" + $character)
+  $value + $array
+
