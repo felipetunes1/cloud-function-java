@@ -11,28 +11,26 @@ public class Response {
 
    private JsonObject objectResult;
 
-   private String textResult;
+   private Object result;
 
    private JsonArray arrayResult;
 
    public String getResult(HttpResponse response) {
       Gson gson = new Gson();
       response.setStatusCode(200);
+      response.setContentType("application/json");
 
       if (objectResult != null) {
-         response.setContentType("application/json");
          return gson.toJson(objectResult);
 
-      } else if (textResult != null) {
-         return textResult;
+      } else if (result != null) {
+         return gson.toJson(this);
 
       } else if (arrayResult != null) {
-         response.setContentType("application/json");
          return gson.toJson(arrayResult);
 
       }
-      response.setStatusCode(500);
-      return null;
+      return ExceptionModel.generateError(452, "Result Nullable", "Template Execution Returned a Null Result").getResult(response);
    }
 
    public JsonObject getObjectResult() {
@@ -44,12 +42,12 @@ public class Response {
       this.objectResult = gson.fromJson(result.toString(), JsonObject.class);
    }
 
-   public void setTextResult(String textResult) {
-      this.textResult = textResult;
+   public void setTextResult(Object textResult) {
+      this.result = textResult;
    }
 
-   public String getTextResult() {
-      return textResult;
+   public Object getTextResult() {
+      return result;
    }
 
    public void setArrayResult(ArrayNode arrayResult) {
@@ -63,7 +61,7 @@ public class Response {
 
    @Override
    public String toString() {
-      return "Response [arrayResult=" + arrayResult + ", objectResult=" + objectResult + ", textResult=" + textResult
+      return "Response [arrayResult=" + arrayResult + ", objectResult=" + objectResult + ", textResult=" + result
             + "]";
    }
 
