@@ -8,7 +8,6 @@ import com.schibsted.spt.data.jslt.JsltException;
 
 import function.model.ExceptionModel;
 import function.model.Request;
-import function.model.Response;
 import function.util.Transform;
 
 import java.io.BufferedWriter;

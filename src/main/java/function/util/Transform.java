@@ -22,7 +22,7 @@ public class Transform {
 
       Expression expression = null;
 
-      expression = Parser.compileString(template);
+      expression = Parser.compileString(template, CustomFunction.getFunctions());
 
       ObjectMapper objectMapper = new ObjectMapper();
 
@@ -32,6 +32,7 @@ public class Transform {
 
       System.out.println(result.toString());
       System.out.println(result.getClass());
+
       if (result instanceof TextNode)
          response.setTextResult(result.textValue());
       else if (result instanceof DoubleNode)
