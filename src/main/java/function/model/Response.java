@@ -1,5 +1,6 @@
 package function.model;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.google.gson.Gson;
@@ -30,7 +31,8 @@ public class Response {
          return gson.toJson(arrayResult);
 
       }
-      return ExceptionModel.generateError(452, "Result Nullable", "Template Execution Returned a Null Result").getResult(response);
+      return ExceptionModel.generateError(452, "Result Nullable", "Template Execution Returned a Null Result")
+            .getResult(response);
    }
 
    public JsonObject getObjectResult() {
@@ -38,8 +40,7 @@ public class Response {
    }
 
    public void setObjectResult(ObjectNode result) {
-      Gson gson = new Gson();
-      this.objectResult = gson.fromJson(result.toString(), JsonObject.class);
+      this.objectResult = new Gson().fromJson(result.toString(), JsonObject.class);
    }
 
    public void setTextResult(Object textResult) {
@@ -61,9 +62,21 @@ public class Response {
 
    @Override
    public String toString() {
-      return "Response [arrayResult=" + arrayResult + ", objectResult=" + objectResult + ", textResult=" + result
-            + "]";
+      return "Response [arrayResult=" + arrayResult + ", objectResult=" + objectResult + ", textResult=" + result + "]";
    }
 
+   public static Response build(JsonNode jsonNode) {
+      Response response = new Response();
+
+      if (jsonNode instanceof ObjectNode)
+         response.setObjectResult((ObjectNode) jsonNode);
+      else if (jsonNode instanceof ArrayNode)
+         response.setArrayResult((ArrayNode) jsonNode);
+      else
+         response.setTextResult(jsonNode.asText());
+
+      return response;
+
+   }
 
 }

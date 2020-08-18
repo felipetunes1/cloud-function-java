@@ -2,9 +2,6 @@ package function.model;
 
 import com.google.gson.JsonObject;
 
-/**
- * User
- */
 public class Request {
 
    private JsonObject input;
@@ -31,7 +28,4 @@ public class Request {
       return "Request [input=" + input + ", template=" + template + "]";
    }
 
-   
-
-   
 }

@@ -33,16 +33,6 @@ public class ExceptionModel {
       this.description = description;
    }
 
-   public static ExceptionModel generateError(int code, String message, Exception ex) {
-      ExceptionModel exceptionModel = new ExceptionModel();
-      exceptionModel.setCode(code);
-      exceptionModel.setMessage(message);
-      exceptionModel.setDescription(ex.getLocalizedMessage());
-
-      return exceptionModel;
-
-   }
-
    public static ExceptionModel generateError(int code, String message, String description) {
       ExceptionModel exceptionModel = new ExceptionModel();
       exceptionModel.setCode(code);
@@ -54,7 +44,6 @@ public class ExceptionModel {
    }
 
    public String getResult(HttpResponse response) {
-      response.setContentType("application/json");
       response.setStatusCode(452);
       return new Gson().toJson(this);
    }

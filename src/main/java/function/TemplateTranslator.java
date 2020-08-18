@@ -20,12 +20,13 @@ public class TemplateTranslator implements HttpFunction {
       BufferedWriter writer = response.getWriter();
       Request request2 = new Gson().fromJson(request.getReader(), Request.class);
 
+      response.setContentType("application/json");
       try {
          writer.write(Transform.compile(request2.getInput(), request2.getTemplate()).getResult(response));
 
       } catch (JsltException ex) {
          ex.printStackTrace();
-         writer.write(ExceptionModel.generateError(452, "Incorrect Template", ex).getResult(response));
+         writer.write(ExceptionModel.generateError(452, "Incorrect Template", ex.getLocalizedMessage()).getResult(response));
 
       }
 
